@@ -5,92 +5,92 @@
     <title>Title</title>
     <style>
         .hidden {
-  display:none;
-}
+            display: none;
+        }
     </style>
 </head>
 <body>
 <div>Вам сейчас будут предложены пять задач, на каждую 30 секунд. ...</div>
 <button onclick="start()">Start</button>
-<form class='hidden' action="" method="POST" onsubmit="return _validateForm()">
-  <p id="question">
-    Введите объём шара  с радиусом <span id="radius"></span>, у Вас <span id="time"></span> секунд!
-  </p>
-  <form id="answer_form">
-    <label for="answer" > Ваш ответ
-      <input type="number" min=0 id="answer" name="answer" value=0 >
-      <button id="submit_form">Submit</button>
-    </label>
+<form class='hidden' action="" method="POST">
+    <p id="question">
+        Введите объём шара с радиусом <span id="radius"></span>, у Вас <span id="time"></span> секунд!
+    </p>
+    <form id="answer_form">
+        <label for="answer"> Ваш ответ
+            <input type="number" min=0 id="answer" name="answer" value=0>
+            <button id="submit_form">Submit</button>
+        </label>
 
-  </form>
+    </form>
 
-</div>
+    </div>
 
-
+</form>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
 <script>
     let random;
 
-function first_test(){
-  random = Math.floor(Math.random() * 7 + 3);
-  let element = document.getElementById('radius');
-  element.innerHTML = random;
-  $('form.hidden').removeClass('hidden');
-  $('#submit_form').removeAttr('disabled')
-    $('#answer').removeAttr('disabled')
-  startTimer(5, this);
-  // alert($('#radius').html('asdfsd'))
+    function first_test() {
+        random = Math.floor(Math.random() * 7 + 3);
+        let element = document.getElementById('radius');
+        element.innerHTML = random;
+        $('form.hidden').removeClass('hidden');
+        $('#submit_form').removeAttr('disabled')
+        $('#answer').removeAttr('disabled')
+        startTimer(30, this);
+        // alert($('#radius').html('asdfsd'))
 
-  // $('form.hidden'){
-  //   $(this).removeClass('hidden');
-  // }
-  //
-}
+        // $('form.hidden'){
+        //   $(this).removeClass('hidden');
+        // }
+        //
+    }
 
-function start(){
-  first_test();
-}
-function formula(answer,random_number){
+    function start() {
+        first_test();
+    }
 
-    let p = Math.abs(parseInt(answer) - 4/3 * Math.PI * random_number*random_number*random_number) / ( 4/3 *Math.PI * random_number*random_number*random_number)*100;
+    function formula(answer, random_number) {
 
-    return Math.round(p);
-}
+        let p = Math.abs(parseInt(answer) - 4 / 3 * Math.PI * random_number * random_number * random_number) / (4 / 3 * Math.PI * random_number * random_number * random_number) * 100;
 
-function startTimer(duration) {
-    var timer = duration, minutes, seconds;
-    let display = document.querySelector('#time');
-    display.textContent =  seconds;
+        return Math.round(p);
+    }
 
-    $('#radius').text(random)
-    var interval = setInterval(function () {
-        // minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
-        // minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+    function startTimer(duration) {
+        var timer = duration, minutes, seconds;
+        let display = document.querySelector('#time');
+        display.textContent = seconds;
 
-        display.textContent =  seconds;
+        $('#radius').text(random)
+        var interval = setInterval(function () {
+            // minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+            // minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        if (--timer < 0) {
-            $('form').addClass('hidden');
-            clearInterval(interval)
-        }
-    }, 1000);
-}
+            display.textContent = seconds;
+
+            if (--timer < 0) {
+                $('form').addClass('hidden');
+                clearInterval(interval)
+            }
+        }, 1000);
+    }
 
 
-    function _validateForm(){
+    $('form').submit(function (e) {
+        let answer = $(this).serializeArray();
+        answer = answer[0].value;
+        alert(formula(answer = answer, random_number = random));
+        e.preventDefault();
+        $('#submit_form').attr('disabled', 'disabled');
+        $('#answer').attr('disabled', 'disabled');
 
-$('form').submit(function(e){
-    let answer = $(this).serializeArray();
-    answer = answer[0].value;
-    alert(formula(answer=answer, random_number=random));
-    e.preventDefault();
-    $('#submit_form').attr('disabled', 'disabled');
-    $('#answer').attr('disabled', 'disabled');
-})
-}
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        return false;
+    })
 </script>
 </html>
