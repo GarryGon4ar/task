@@ -16,16 +16,13 @@
     <p id="question">
         Введите объём шара с радиусом <span id="radius"></span>, у Вас <span id="time"></span> секунд!
     </p>
-    <form id="answer_form">
+    <form class="answerForm">
         <label for="answer"> Ваш ответ
             <input type="number" min=0 id="answer" name="answer" value=0>
             <button id="submit_form">Submit</button>
         </label>
 
     </form>
-
-    </div>
-
 </form>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
@@ -85,10 +82,11 @@
     $('form').submit(function (e) {
         let answer = $(this).serializeArray();
         answer = answer[0].value;
-        alert(formula(answer = answer, random_number = random));
+        alert("Ваша оценка " + formula(answer = answer, random_number = random));
         e.preventDefault();
         $('#submit_form').attr('disabled', 'disabled');
         $('#answer').attr('disabled', 'disabled');
+
 
         return false;
     })
