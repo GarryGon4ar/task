@@ -31,7 +31,7 @@
     let random;
 
     function first_test() {
-        random = Math.floor(Math.random() * 7 + 3);
+        random = Math.floor(Math.random() * 7 + 3+{{ SECONDS }});
         let element = document.getElementById('radius');
         element.innerHTML = random;
         $('form.hidden').removeClass('hidden');
